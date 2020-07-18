@@ -88,4 +88,3 @@ AddArtwork.propTypes = {
 };
 
 export default connect(null, { addSingleArtwork })(AddArtwork);
-// export default AddArtwork;

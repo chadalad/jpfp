@@ -11,17 +11,12 @@ const startApplication = async () => {
   const NODE_ENV = process.env.NODE_ENV;
   console.log(chalk.cyan(`Application starting, env = ${NODE_ENV}`));
   try {
-    // const force = process.env.NODE_ENV !== 'production';
-
     if (NODE_ENV === 'development') {
       await seed();
     } else {
       await sync();
     }
 
-
-    // await sync(force);
-    // await seed();
     await startServer();
     console.log(chalk.cyanBright('Application started!'))
   } catch (e) {

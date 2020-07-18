@@ -361,7 +361,7 @@ AddArtwork.propTypes = {
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(null, {
   addSingleArtwork: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_3__["addSingleArtwork"]
-})(AddArtwork)); // export default AddArtwork;
+})(AddArtwork));
 
 /***/ }),
 
@@ -419,117 +419,6 @@ const mapStateToProps = state => ({
 
 /***/ }),
 
-/***/ "./client/components/create_museum/create_museum.js":
-/*!**********************************************************!*\
-  !*** ./client/components/create_museum/create_museum.js ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/store */ "./client/redux/store.js");
-/* harmony import */ var _redux_museums_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/museums/index */ "./client/redux/museums/index.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-class CreateMuseum extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-  constructor() {
-    super();
-
-    _defineProperty(this, "onChange", ({
-      target: {
-        name,
-        value
-      }
-    }) => {
-      _redux_store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_redux_museums_index__WEBPACK_IMPORTED_MODULE_3__["updateForm"])(name, value));
-    });
-
-    _defineProperty(this, "onSubmit", e => {
-      e.preventDefault();
-      const {
-        name,
-        imageURL
-      } = this.state;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/museums', {
-        name,
-        imageURL
-      }).then(({
-        data
-      }) => {
-        //once the data is set, add that to the museum list, but that's a separate component
-        console.log('Create Museum Response: ', data);
-      }).catch(e => {
-        console.error(e);
-      });
-    });
-
-    const {
-      name: _name,
-      imageURL: _imageURL
-    } = _redux_store__WEBPACK_IMPORTED_MODULE_2__["default"].getState();
-    this.state = {
-      name: _name,
-      imageURL: _imageURL
-    };
-    _redux_store__WEBPACK_IMPORTED_MODULE_2__["default"].subscribe(() => {
-      const {
-        name,
-        imageURL
-      } = _redux_store__WEBPACK_IMPORTED_MODULE_2__["default"].getState();
-      this.setState({
-        name,
-        imageURL
-      });
-    });
-  }
-
-  //do verification on the local state.
-  //ask self - does any other part of website need to know about this form data
-  render() {
-    const {
-      name,
-      imageURL
-    } = this.state;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "box"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-      className: "field",
-      onSubmit: this.onSubmit
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "label"
-    }, "Museum Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "input",
-      name: "name",
-      onChange: this.onChange,
-      value: name
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "label"
-    }, "Icon URL", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "input",
-      name: "imageURL",
-      onChange: this.onChange,
-      value: imageURL
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "button is-danger has-text-weight-bold"
-    }, " Create Museum ")));
-  }
-
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (CreateMuseum);
-
-/***/ }),
-
 /***/ "./client/components/edit_museum/edit_museum.js":
 /*!******************************************************!*\
   !*** ./client/components/edit_museum/edit_museum.js ***!
@@ -571,10 +460,7 @@ class EditMuseum extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
   onClickingAdd(e) {
     e.preventDefault();
-    console.log('made it here');
-    this.props.updateMuseumIdStatusOfArtwork(this.state.selectedArtworkId, this.props.museum.id); // this.setState({
-    //   selectedArtworkId: '',
-    // });
+    this.props.updateMuseumIdStatusOfArtwork(this.state.selectedArtworkId, this.props.museum.id);
   }
 
   render() {
@@ -582,52 +468,41 @@ class EditMuseum extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     const {
       name
     } = this.props.museum;
-    return (
-      /*#__PURE__*/
-      // <div className="modal">
-      //   <div className="modal-background"></div>
-      //   <div className="modal-content">
-      //     <form>
-      //     </form>
-      //   </div>
-      //   <button className="modal-close is-large"></button>
-      // </div>
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "columns"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "column"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "title is-3"
-      }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-        className: "is-divider"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "label"
-      }, "Current Collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentDisplay.length ? this.props.currentDisplay.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        key: item.id
-      }, `'${item.title}' by ${item.artist} (${item.yearCreated})`)) : 'There are currently no pieces on display.'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "column"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "label"
-      }, "Add to the Collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "field",
-        onSubmit: this.onClickingAdd
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "select mr-2",
-        onChange: this.onArtworkSelection
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        key: "default"
-      }, "Select Artwork"), this.props.availableArtwork.map(art => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        key: art.id,
-        value: art.id
-      }, `'${art.title}' by ${art.artist} (${art.yearCreated})`)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button is-danger has-text-weight-bold",
-        type: "submit"
-      }, "Add")))))
-    );
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "box"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "columns"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+      className: "title is-3"
+    }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      className: "is-divider"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "content"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "label"
+    }, "Current Collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentDisplay.length ? this.props.currentDisplay.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: item.id
+    }, `'${item.title}' by ${item.artist} (${item.yearCreated})`)) : 'There are currently no pieces on display.'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "label"
+    }, "Add to the Collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      className: "field",
+      onSubmit: this.onClickingAdd
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "select mr-2",
+      onChange: this.onArtworkSelection
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: "default"
+    }, "Select Artwork"), this.props.availableArtwork.map(art => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: art.id,
+      value: art.id
+    }, `'${art.title}' by ${art.artist} (${art.yearCreated})`)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "button is-danger has-text-weight-bold",
+      type: "submit"
+    }, "Add")))));
   }
 
 }
@@ -650,35 +525,31 @@ const mapStateToProps = state => ({
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
-/*! exports provided: CreateMuseum, AddMuseum, MuseumList, EditMuseum, Nav, Artwork, ArtworkList, AddArtwork */
+/*! exports provided: AddMuseum, MuseumList, EditMuseum, Nav, Artwork, ArtworkList, AddArtwork */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _create_museum_create_museum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create_museum/create_museum */ "./client/components/create_museum/create_museum.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CreateMuseum", function() { return _create_museum_create_museum__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+/* harmony import */ var _add_museum_add_museum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add_museum/add_museum */ "./client/components/add_museum/add_museum.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddMuseum", function() { return _add_museum_add_museum__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _add_museum_add_museum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add_museum/add_museum */ "./client/components/add_museum/add_museum.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddMuseum", function() { return _add_museum_add_museum__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+/* harmony import */ var _museum_list_museum_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./museum_list/museum_list */ "./client/components/museum_list/museum_list.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MuseumList", function() { return _museum_list_museum_list__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _museum_list_museum_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./museum_list/museum_list */ "./client/components/museum_list/museum_list.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MuseumList", function() { return _museum_list_museum_list__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _edit_museum_edit_museum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit_museum/edit_museum */ "./client/components/edit_museum/edit_museum.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EditMuseum", function() { return _edit_museum_edit_museum__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _edit_museum_edit_museum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit_museum/edit_museum */ "./client/components/edit_museum/edit_museum.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EditMuseum", function() { return _edit_museum_edit_museum__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _nav_nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nav/nav */ "./client/components/nav/nav.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Nav", function() { return _nav_nav__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _nav_nav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nav/nav */ "./client/components/nav/nav.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Nav", function() { return _nav_nav__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _artwork_artwork__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./artwork/artwork */ "./client/components/artwork/artwork.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Artwork", function() { return _artwork_artwork__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _artwork_artwork__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./artwork/artwork */ "./client/components/artwork/artwork.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Artwork", function() { return _artwork_artwork__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _artwork_list_artwork_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./artwork_list/artwork_list */ "./client/components/artwork_list/artwork_list.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArtworkList", function() { return _artwork_list_artwork_list__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _artwork_list_artwork_list__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./artwork_list/artwork_list */ "./client/components/artwork_list/artwork_list.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArtworkList", function() { return _artwork_list_artwork_list__WEBPACK_IMPORTED_MODULE_6__["default"]; });
-
-/* harmony import */ var _artwork_add_artwork_add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./artwork_add/artwork_add */ "./client/components/artwork_add/artwork_add.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddArtwork", function() { return _artwork_add_artwork_add__WEBPACK_IMPORTED_MODULE_7__["default"]; });
-
+/* harmony import */ var _artwork_add_artwork_add__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./artwork_add/artwork_add */ "./client/components/artwork_add/artwork_add.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddArtwork", function() { return _artwork_add_artwork_add__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
 
 
@@ -719,8 +590,7 @@ class MuseumList extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   render() {
-    console.log(this.props); // const museums = this.props.museums;
-
+    console.log(this.props);
     const {
       museums
     } = this.props;
@@ -979,50 +849,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _artworks_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./artworks.types */ "./client/redux/artworks/artworks.types.js");
 
- // export function fetchAllArtwork() {
-//   return function(dispatch) {
-//     axios.get('/api/artwork')
-//       .then(res => dispatch({
-//         type: FETCH_ALL_ARTWORK,
-//         fetchedArt: res.data.artwork,
-//       }));
-//   }
-// }
 
 const fetchAllArtwork = () => async dispatch => {
-  console.log('fetchArts');
   await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/artwork').then(async res => dispatch({
     type: _artworks_types__WEBPACK_IMPORTED_MODULE_1__["FETCH_ALL_ARTWORK"],
     fetchedArt: res.data.artwork
   }));
 };
 const fetchAvailableArtwork = () => async dispatch => {
-  console.log('fetchAvailable');
   await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/artwork/available').then(async res => dispatch({
     type: _artworks_types__WEBPACK_IMPORTED_MODULE_1__["FETCH_AVAILABLE_ARTWORK"],
     available: res.data.availableArt
   }));
 };
 const fetchArtInCurrentMuseum = currentMuseum => async dispatch => {
-  console.log(currentMuseum);
   const currentMuseumId = currentMuseum.id;
-  console.log(currentMuseumId); // await axios.get('/api/artwork/onDisplayHere', { params: currentMuseum })
-  //   .then(async (res) => dispatch({
-  //     type: FETCH_ART_IN_CURRENT_MUSEUM,
-  //     displayed: res.data.displayed,
-  //   }));
-
   await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(`/api/artwork/onDisplayHere/${currentMuseum.id}`).then(async res => dispatch({
     type: _artworks_types__WEBPACK_IMPORTED_MODULE_1__["FETCH_ART_IN_CURRENT_MUSEUM"],
     displayed: res.data.displayed
-  })); // await axios.get('/api/artwork/onDisplayHere', { params: { id: currentMuseumId } })
-  //   .then(async (res) => dispatch({
-  //     type: FETCH_ART_IN_CURRENT_MUSEUM,
-  //     displayed: res.data.displayed,
-  //   }));
+  }));
 };
 const addSingleArtwork = artworkData => async dispatch => {
-  console.log('postArt');
   await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/artwork', artworkData).then(async res => dispatch({
     type: _artworks_types__WEBPACK_IMPORTED_MODULE_1__["ADD_SINGLE_ARTWORK"],
     postedArt: res.data.artwork
@@ -1046,7 +893,6 @@ const deleteSingleArtwork = artworkData => async dispatch => {
   const {
     id
   } = artworkData;
-  console.log('deleteArt');
   await axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete('/api/artwork', {
     data: artworkData
   }).then(async res => dispatch({
@@ -1098,7 +944,7 @@ const artworkReducer = (state = initialState, action) => {
       };
 
     case _artworks_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_ART_IN_CURRENT_MUSEUM"]:
-      console.log(action.displayed);
+      console.log('current display action reducer', action.displayed);
       return { ...state,
         currentDisplay: action.displayed
       };
@@ -1146,21 +992,13 @@ const UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK = 'UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK';
 /*!***************************************!*\
   !*** ./client/redux/museums/index.js ***!
   \***************************************/
-/*! exports provided: UPDATE_FORM, updateForm, museumReducer */
+/*! exports provided: museumReducer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _museums_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./museums.types */ "./client/redux/museums/museums.types.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UPDATE_FORM", function() { return _museums_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_FORM"]; });
-
-/* harmony import */ var _museums_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./museums.actions */ "./client/redux/museums/museums.actions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateForm", function() { return _museums_actions__WEBPACK_IMPORTED_MODULE_1__["updateForm"]; });
-
-/* harmony import */ var _museums_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./museums.reducers */ "./client/redux/museums/museums.reducers.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "museumReducer", function() { return _museums_reducers__WEBPACK_IMPORTED_MODULE_2__["museumReducer"]; });
-
-
+/* harmony import */ var _museums_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./museums.reducers */ "./client/redux/museums/museums.reducers.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "museumReducer", function() { return _museums_reducers__WEBPACK_IMPORTED_MODULE_0__["museumReducer"]; });
 
 
 
@@ -1171,7 +1009,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************!*\
   !*** ./client/redux/museums/museums.actions.js ***!
   \*************************************************/
-/*! exports provided: fetchMuseums, createMuseum, setMuseumToSelected, editMuseum, deleteMuseum, updateForm */
+/*! exports provided: fetchMuseums, createMuseum, setMuseumToSelected, editMuseum, deleteMuseum */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1181,26 +1019,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setMuseumToSelected", function() { return setMuseumToSelected; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editMuseum", function() { return editMuseum; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMuseum", function() { return deleteMuseum; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateForm", function() { return updateForm; });
 /* harmony import */ var _museums_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./museums.types */ "./client/redux/museums/museums.types.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
- // export function fetchMuseums() {
-//   return function (dispatch) {
-//     axios.get('/api/museums')
-//       .then(museums => dispatch({
-//         type: FETCH_MUSEUMS,
-//         payload: museums,
-//       }));
-//         // this.setState({museums: res.data.museums}));
-//   }
-// }
-//same as above
 
 const fetchMuseums = () => async dispatch => {
   await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/museums').then(async res => {
-    console.log('fetch: ', Array.isArray(res.data.museums));
     dispatch({
       type: _museums_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_MUSEUMS"],
       museums: res.data.museums
@@ -1208,9 +1033,7 @@ const fetchMuseums = () => async dispatch => {
   });
 };
 const createMuseum = museumData => async dispatch => {
-  console.log('action called');
   await axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/museums', museumData).then(async res => {
-    console.log('post: ', res.data.museum);
     dispatch({
       type: _museums_types__WEBPACK_IMPORTED_MODULE_0__["NEW_MUSEUM"],
       museum: res.data.museum
@@ -1218,16 +1041,13 @@ const createMuseum = museumData => async dispatch => {
   });
 };
 const setMuseumToSelected = museumData => async dispatch => {
-  console.log('setMus -> name: ', museumData.name);
   dispatch({
     type: _museums_types__WEBPACK_IMPORTED_MODULE_0__["SET_MUSEUM_TO_SELECTED"],
     currentMuseum: museumData
   });
 };
 const editMuseum = museumData => async dispatch => {
-  console.log('edit action called');
   await axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/museums', museumData).then(async res => {
-    console.log('put: ', res.data.museum);
     dispatch({
       type: _museums_types__WEBPACK_IMPORTED_MODULE_0__["EDIT_MUSEUM"],
       museum: res.data.museum
@@ -1238,27 +1058,15 @@ const deleteMuseum = museumData => async dispatch => {
   const {
     id
   } = museumData;
-  console.log('delete action called, museumId: ', id, ' obj: ', museumData);
   await axios__WEBPACK_IMPORTED_MODULE_1___default.a.delete('/api/museums', {
     data: museumData
   }).then(async res => {
-    console.log('delete: ', res.data);
     dispatch({
       type: _museums_types__WEBPACK_IMPORTED_MODULE_0__["DELETE_MUSEUM"],
       id
     });
   });
-}; //thunks are actions
-//actions be the whole big function. make the axios call and dispatch.
-// does what it needs
-
-const updateForm = (name, value) => ({
-  type: _museums_types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_FORM"],
-  name,
-  value
-});
-
-
+};
 
 /***/ }),
 
@@ -1283,25 +1091,11 @@ const initialState = {
 const museumReducer = (state = initialState, action) => {
   switch (action.type) {
     case _museums_types__WEBPACK_IMPORTED_MODULE_0__["FETCH_MUSEUMS"]:
-      console.log('reducer fetch: ', action.museums);
       return { ...state,
         museums: action.museums
       };
 
     case _museums_types__WEBPACK_IMPORTED_MODULE_0__["NEW_MUSEUM"]:
-      console.log('reducer: ', action.museum);
-      console.log('state prior to reducer add action: ', state); // return {
-      //   ...state,
-      //   museums: museums.museums.concat(action.museum.museum)
-      //   // museum: action.museum,
-      // }
-      // return Object.assign({}, state, {
-      //   museums: [
-      //     ...state.museums.museums,
-      //     action.museum.museum,
-      //   ]
-      // })
-
       return { ...state,
         museums: state.museums.concat(action.museum)
       };
@@ -1312,12 +1106,10 @@ const museumReducer = (state = initialState, action) => {
       };
 
     case _museums_types__WEBPACK_IMPORTED_MODULE_0__["EDIT_MUSEUM"]:
-      console.log('reducer (edit): ', action.museum);
       return { ...state
       };
 
     case _museums_types__WEBPACK_IMPORTED_MODULE_0__["DELETE_MUSEUM"]:
-      console.log('reducer (delete): ', action.id);
       return { ...state,
         museums: state.museums.filter(museum => museum.id !== action.id)
       };
@@ -1325,31 +1117,7 @@ const museumReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}; // export default function(state = initialState, action) {
-//   switch (action.type) {
-//     case FETCH_MUSEUMS:
-//       return {
-//         ...state,
-//         museums: action.museums
-//       }
-//     default:
-//       return state;
-//   }
-// }
-// const museumReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case UPDATE_FORM:
-//       return {
-//         ...state,
-//         [action.name]: action.value,
-//       }
-//     default:
-//       return state;
-//   }
-// };
-// export {
-//   museumReducer
-// };
+};
 
 /***/ }),
 
@@ -1357,7 +1125,7 @@ const museumReducer = (state = initialState, action) => {
 /*!***********************************************!*\
   !*** ./client/redux/museums/museums.types.js ***!
   \***********************************************/
-/*! exports provided: FETCH_MUSEUMS, NEW_MUSEUM, DELETE_MUSEUM, EDIT_MUSEUM, SET_MUSEUM_TO_SELECTED, UPDATE_FORM */
+/*! exports provided: FETCH_MUSEUMS, NEW_MUSEUM, DELETE_MUSEUM, EDIT_MUSEUM, SET_MUSEUM_TO_SELECTED */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1367,14 +1135,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_MUSEUM", function() { return DELETE_MUSEUM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EDIT_MUSEUM", function() { return EDIT_MUSEUM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_MUSEUM_TO_SELECTED", function() { return SET_MUSEUM_TO_SELECTED; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_FORM", function() { return UPDATE_FORM; });
-const UPDATE_FORM = 'UPDATE_FORM';
 const FETCH_MUSEUMS = 'FETCH_MUSEUMS';
 const NEW_MUSEUM = 'NEW_MUSEUM';
 const DELETE_MUSEUM = 'DELETE_MUSEUM';
 const EDIT_MUSEUM = 'EDIT_MUSEUM';
 const SET_MUSEUM_TO_SELECTED = 'SET_MUSEUM_TO_SELECTED';
-
 
 /***/ }),
 
@@ -1392,28 +1157,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _artworks_artworks_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./artworks/artworks.reducers */ "./client/redux/artworks/artworks.reducers.js");
 
 
- // const rootReducer = museumReducer;
-// export default rootReducer;
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  // museumLevelData: museumReducer,
   museums: _museums_index__WEBPACK_IMPORTED_MODULE_1__["museumReducer"],
   allArt: _artworks_artworks_reducers__WEBPACK_IMPORTED_MODULE_2__["artworkReducer"]
 }));
-/**
- * Error: 
- *  State changes from 
- *    state -museums -museums  
- * 
- * Context:
- * State Model
- *    -museum level data:
- *        -museums, museum
- *    -artwork level data:
- *        -artwork, year, etc.
- * 
- * 
- */
 
 /***/ }),
 
@@ -1433,13 +1181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const initialState = {};
-const middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]]; // const loggingMiddleware = store => next => action => {
-//   console.log('Action: ', action);
-//   next(action);
-//   console.log('New State: ', store.getState());
-// };
-// const store = createStore(rootReducer, applyMiddleware(loggingMiddleware));
-
+const middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]];
 const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_rootreducer__WEBPACK_IMPORTED_MODULE_1__["default"], initialState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["compose"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(...middleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 /* harmony default export */ __webpack_exports__["default"] = (store);
 

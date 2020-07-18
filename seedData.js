@@ -67,8 +67,8 @@ const startingArtwork = [
 const seed = async () => {
   await sync(true);
   try {
-    // get museum art from API. museumart.axios.get()
-    // have an object, map over, and push to db
+    //  get museum art from API. museumart.axios.get()
+    //  have an object, map over, and push to db
     
     await Promise.all(startingArtwork.map(piece => Artwork.create(piece)));
     await Promise.all(startingMuseums.map(gallery => Museum.create(gallery)));

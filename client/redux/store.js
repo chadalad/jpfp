@@ -3,18 +3,7 @@ import rootReducer from './rootreducer';
 import thunk from 'redux-thunk';
 
 const initialState = {};
-
 const middleware = [thunk];
-
-// const loggingMiddleware = store => next => action => {
-//   console.log('Action: ', action);
-
-//   next(action);
-
-//   console.log('New State: ', store.getState());
-// };
-
-// const store = createStore(rootReducer, applyMiddleware(loggingMiddleware));
 
 const store = createStore(
   rootReducer, 

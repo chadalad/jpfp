@@ -1,10 +1,5 @@
-const UPDATE_FORM = 'UPDATE_FORM';
 export const FETCH_MUSEUMS = 'FETCH_MUSEUMS';
 export const NEW_MUSEUM = 'NEW_MUSEUM';
 export const DELETE_MUSEUM = 'DELETE_MUSEUM';
 export const EDIT_MUSEUM = 'EDIT_MUSEUM';
 export const SET_MUSEUM_TO_SELECTED = 'SET_MUSEUM_TO_SELECTED';
-
-export {
-  UPDATE_FORM,
-};

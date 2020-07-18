@@ -44,31 +44,14 @@ artworkRouter.get('/available', async (req, res) => {
 
 artworkRouter.get('/onDisplayHere/:id', async (req, res) => {
   try {
-    // const reqMusId = req.body.id;
-    // const { id } = req.body;
     const { id } = req.params;
     console.log(chalk.yellow(id));
-
-    // let artOnDisplayAtId = [];
-
-    // console.log('museumId: ', reqMusId)
-    // if (reqMusId) {
-    //   artOnDisplayAtId = await Artwork.findAll({
-    //     where: {
-    //       museumId: reqMusId,
-    //     }
-    //   });
-    // }
 
     const artOnDisplayAtId = await Artwork.findAll({
       where: {
         museumId: id,
       }
     });
-
-    // console.log(chalk.yellow(req.body))
-    // console.log(typeof reqMusId, reqMusId)
-    console.log('return array:', artOnDisplayAtId)
 
     res.status(200).send({
       displayed: artOnDisplayAtId,

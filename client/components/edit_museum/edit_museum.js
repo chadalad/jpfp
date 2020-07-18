@@ -30,28 +30,13 @@ class EditMuseum extends Component {
 
   onClickingAdd(e) {
     e.preventDefault();
-    console.log('made it here')
-
     this.props.updateMuseumIdStatusOfArtwork(this.state.selectedArtworkId, this.props.museum.id);
-
-    // this.setState({
-    //   selectedArtworkId: '',
-    // });
   }
 
   render() {
     console.log('EditMuseum component props: ', this.props);
     const { name } = this.props.museum;
     return (
-      // <div className="modal">
-      //   <div className="modal-background"></div>
-      //   <div className="modal-content">
-      //     <form>
-
-      //     </form>
-      //   </div>
-      //   <button className="modal-close is-large"></button>
-      // </div>
       <div className='box'>
         <div className='columns'>
           <div className='column'>

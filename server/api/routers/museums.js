@@ -21,29 +21,20 @@ museumRouter.get('/', async (req, res) => {
 
 museumRouter.post('/', async (req, res) => {
   try {
-    //  is there a safer way?
     const { 
       name,
       imageURL,
      } = req.body;
 
-    console.log(chalk.yellow(`name: ${name}, imageURL: ${imageURL}`));
-    // if (typeof name !== 'string' && typeof imageURL !== 'string') {
-    //   res.status(400).send({
-    //     message: 'Body of request must include a "name" of type "string" and URL of type "string".',
-    //   });
-    // } else {
-      const createdMuseum = await Museum.create({
-        name,
-        imageURL,
-      });
+    const createdMuseum = await Museum.create({
+      name,
+      imageURL,
+    });
 
-      console.log('Create Museum Request: ', req.body);
-      res.status(201).send({
-        museum: createdMuseum,
-        message: `Museum ${name} was created successfully!`,
-      });
-    // } 
+    res.status(201).send({
+      museum: createdMuseum,
+      message: `Museum ${name} was created successfully!`,
+    });
   } catch (e) {
     console.log(chalk.red('Error creating museum.'));
     console.error(e);
@@ -56,32 +47,12 @@ museumRouter.post('/', async (req, res) => {
 museumRouter.put('/', async (req, res) => {
   try {
     const { id, name, imageURL } = req.body;
-    // console.log(chalk.yellow('here'));
-    // if (!req.museum[id]) {
-    //   res.status(400).send({
-    //     message: `Museum ${name} does not exist in database.`,
-    //   });
-    console.log(chalk.cyanBright('Put Museum Reques: ', req.body))
+  
     if (!imageURL || !name) {
       res.status(400).send({
         message: `Must include an image URL or museum name to be updated in the request.`,
       })
     } else {
-      // first: find museum (findOne) (find by PK) .then, instance.update
-      // try {
-      //   await Museum.findOne({
-      //     where: {
-      //       name: name,
-      //     },
-      //   });
-      // } catch (e) {
-      //   console.log(chalk.red(`Museum ${name} not found.`))
-      //   console.error(e);
-      //   res.status(404).send({
-      //     message: `Museum ${name} not found.`
-      //   })
-      // }
-
       const updatedMuseum = await Museum.findByPk(req.body.id)
 
       await updatedMuseum.update({

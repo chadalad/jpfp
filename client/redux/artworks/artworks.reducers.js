@@ -37,7 +37,7 @@ export const artworkReducer = (state = initialState, action) => {
         availableArtwork: action.available,
       };
     case FETCH_ART_IN_CURRENT_MUSEUM:
-      console.log(action.displayed);
+      console.log('current display action reducer', action.displayed);
       return {
         ...state,
         currentDisplay: action.displayed,

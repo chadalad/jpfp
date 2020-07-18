@@ -11,7 +11,6 @@ class MuseumList extends Component {
 
   render() {
     console.log(this.props);
-    // const museums = this.props.museums;
     const { museums } = this.props;
 
     return (
@@ -28,54 +27,24 @@ class MuseumList extends Component {
                     className="box"
                   > 
                     <>
-                    {/* <button className="button is-danger has-text-weight-bold is-pulled-right" key={museum.id} onClick={() => this.props.editMuseum(museum)}>Edit</button> */}
-                    {/* <button className="button is-danger has-text-weight-bold is-pulled-right" key={museum.id} href={(<Link to={`/museums/edit/${museum.id}`}/>)} onClick={() => (<Link to={`/museums/edit/${museum.id}`}/>)}>Edit</button> */}
-                    {/* <button className="button is-danger has-text-weight-bold is-pulled-right" key={museum.id} href={(<Link to={`/museums/edit/${museum.id}`}/>)}>Edit</button> */}
-                    <Link 
-                      to={`/museums/edit/${museum.id}`} 
-                      className="button is-danger has-text-weight-bold is-pulled-right"
-                      museumobj={museum}
-                      onClick={() => {
-                        console.log('click');
-                        this.props.setMuseumToSelected(museum);
-                      }}
-                    >
-                      Edit
-                    </Link>
-                    {/* <button
-                      className="button is-danger has-text-weight-bold is-pulled-right"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        console.log('click');
-                        return (
-                          <Redirect to={`/museums/edit/${museum.id}`} />
-                        )
-                      }
-                      }
-                    >
-                      Edit
-                    </button> */}
-
-
-                    <h4 className="title is-4">{museum.name}</h4>
-                    <hr className="is-divider" />
-                    <p className="">{museum.imageURL}</p>
-                    
+                      <Link 
+                        to={`/museums/edit/${museum.id}`} 
+                        className="button is-danger has-text-weight-bold is-pulled-right"
+                        museumobj={museum}
+                        onClick={() => {
+                          console.log('click');
+                          this.props.setMuseumToSelected(museum);
+                        }}
+                      >
+                        Edit
+                      </Link>
+                      <h4 className="title is-4">{museum.name}</h4>
+                      <hr className="is-divider" />
+                      <p className="">{museum.imageURL}</p>
                     </>
-                    {/* <div className="modal" id={museum.id}>
-                      <div className="modal-background"></div>
-                      <div className="modal-content">
-                        
-                      </div>
-                      <button className="modal-close is-large"></button>
-                    </div> */}
-                    {/* <a className="delete" onClick={this.onDelete(museum.id)}></a> */}
                     <a className="delete" onClick={() => this.props.deleteMuseum({id: museum.id})}></a>
-
-                    
                   </div>
                 )
-
               })
             :
               'No Museum Data'
