@@ -67,6 +67,37 @@ artworkRouter.get('/onDisplayHere/:id', async (req, res) => {
   }
 })
 
+artworkRouter.get('/findOldest', async (req, res) => {
+  try {
+    const oldestPiece = await Artwork.findAll({
+      where: {
+        museumId: {
+          [Op.not]: null
+        }
+      },
+      order: [
+        ['yearCreated', 'ASC']
+      ]
+    });
+
+    console.log('oldestPiece ', oldestPiece[0].museumId)
+
+
+    res.status(200).send({
+      message: 'Found Oldest',
+      oldestMusId: oldestPiece[0].museumId, 
+    })
+
+  } catch (e) {
+    console.log(chalk.redBright(`Error fetching oldest piece`));
+    console.error(e);
+
+    res.status(500).send({
+      message: 'Error fetching oldest piece',
+    });
+  }
+})
+
 artworkRouter.put('/museumIdUpdate', async (req, res) => {
   try {
     const {

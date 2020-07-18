@@ -5,6 +5,7 @@ import {
   FETCH_AVAILABLE_ARTWORK,
   FETCH_ART_IN_CURRENT_MUSEUM,
   UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK,
+  FIND_OLDEST,
 } from './artworks.types';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   singleArtwork: {},
   availableArtwork: [],
   currentDisplay: [],
+  idOldestHoused: '',
 };
 
 export const artworkReducer = (state = initialState, action) => {
@@ -29,7 +31,7 @@ export const artworkReducer = (state = initialState, action) => {
     case DELETE_SINGLE_ARTWORK:
       return {
         ...state,
-        allArtwork: state.allArtwork.filter(art => art.id !== action.id)
+        allArtwork: state.allArtwork.filter(art => art.id !== action.id),
       };
     case FETCH_AVAILABLE_ARTWORK:
       return {
@@ -49,6 +51,11 @@ export const artworkReducer = (state = initialState, action) => {
         allArtwork: state.allArtwork.map(art => art.id === action.id ? action.updatedArt : art),
         availableArtwork: state.availableArtwork.filter(art => art.id !== action.id),
         currentDisplay: state.currentDisplay.concat(action.updatedArt),
+      };
+    case FIND_OLDEST:
+      return {
+        ...state,
+        idOldestHoused: action.oldestMusId,
       };
     default:
       return state;

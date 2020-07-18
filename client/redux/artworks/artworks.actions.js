@@ -6,6 +6,7 @@ import {
   FETCH_AVAILABLE_ARTWORK,
   FETCH_ART_IN_CURRENT_MUSEUM,
   UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK,
+  FIND_OLDEST,
 } from './artworks.types';
 
 export const fetchAllArtwork = () => async (dispatch) => {
@@ -31,6 +32,14 @@ export const fetchArtInCurrentMuseum = (currentMuseum) => async (dispatch) => {
     type: FETCH_ART_IN_CURRENT_MUSEUM,
     displayed: res.data.displayed,
   }));
+}
+
+export const findOldest = () => async (dispatch) => {
+  await axios.get('/findOldest')
+    .then(async (res) => dispatch({
+      type: FIND_OLDEST,
+      oldestMusId: res.data.isOldestHoused,
+    }))
 }
 
 export const addSingleArtwork = (artworkData) => async (dispatch) => {

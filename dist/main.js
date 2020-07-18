@@ -483,8 +483,21 @@ class EditMuseum extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "label"
     }, "Current Collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.currentDisplay.length ? this.props.currentDisplay.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      key: item.id
-    }, `'${item.title}' by ${item.artist} (${item.yearCreated})`)) : 'There are currently no pieces on display.'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: item.id,
+      className: "mr-2"
+    }, `'${item.title}' by ${item.artist} (${item.yearCreated})`, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "button is-danger is-light is-small",
+      onClick: e => {
+        this.props.addSingleArtwork({
+          title: item.title,
+          artist: item.artist,
+          yearCreated: item.yearCreated
+        });
+        this.props.deleteSingleArtwork({
+          id: item.id
+        });
+      }
+    }, "Remove"))) : 'There are currently no pieces on display.'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "column"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       className: "label"
@@ -516,7 +529,9 @@ const mapStateToProps = state => ({
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, {
   fetchAvailableArtwork: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_2__["fetchAvailableArtwork"],
   fetchArtInCurrentMuseum: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_2__["fetchArtInCurrentMuseum"],
-  updateMuseumIdStatusOfArtwork: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_2__["updateMuseumIdStatusOfArtwork"]
+  updateMuseumIdStatusOfArtwork: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_2__["updateMuseumIdStatusOfArtwork"],
+  addSingleArtwork: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_2__["addSingleArtwork"],
+  deleteSingleArtwork: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_2__["deleteSingleArtwork"]
 })(EditMuseum));
 
 /***/ }),
@@ -577,7 +592,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_museums_museums_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/museums/museums.actions */ "./client/redux/museums/museums.actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/artworks/artworks.actions */ "./client/redux/artworks/artworks.actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -587,6 +604,7 @@ __webpack_require__.r(__webpack_exports__);
 class MuseumList extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   componentDidMount() {
     this.props.fetchMuseums();
+    this.props.findOldest();
   }
 
   render() {
@@ -594,15 +612,30 @@ class MuseumList extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     const {
       museums
     } = this.props;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "columns"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
       className: "title is-3"
-    }, "Museums"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Museums")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "column"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+      to: `/museums/edit/${this.props.idOldestHoused}`,
+      className: "button is-danger has-text-weight-bold is-pulled-right ml-3 is-light",
+      onClick: () => this.props.findOldest()
+    }, "Oldest Artwork on Display"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: ""
     }, museums ? museums.map(museum => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: museum.id,
         className: "box"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "button is-danger has-text-weight-bold is-pulled-right ml-3",
+        onClick: () => this.props.deleteMuseum({
+          id: museum.id
+        })
+      }, "Remove"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
         to: `/museums/edit/${museum.id}`,
         className: "button is-danger has-text-weight-bold is-pulled-right",
         museumobj: museum,
@@ -614,14 +647,11 @@ class MuseumList extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         className: "title is-4"
       }, museum.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "is-divider"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: ""
-      }, museum.imageURL)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "delete",
-        onClick: () => this.props.deleteMuseum({
-          id: museum.id
-        })
-      }));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("figure", {
+        className: "image is-96x96"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: museum.imageURL
+      })));
     }) : 'No Museum Data'));
   }
 
@@ -636,7 +666,8 @@ MuseumList.propTypes = {
 
 const mapStateToProps = state => ({
   museums: state.museums.museums,
-  museum: state.museums.museum
+  museum: state.museums.museum,
+  idOldestHoused: state.allArt.idOldestHoused
 }); //  connect(mapStateToProps, mapDispatchToProps)(component)
 
 
@@ -644,7 +675,8 @@ const mapStateToProps = state => ({
   fetchMuseums: _redux_museums_museums_actions__WEBPACK_IMPORTED_MODULE_3__["fetchMuseums"],
   deleteMuseum: _redux_museums_museums_actions__WEBPACK_IMPORTED_MODULE_3__["deleteMuseum"],
   editMuseum: _redux_museums_museums_actions__WEBPACK_IMPORTED_MODULE_3__["editMuseum"],
-  setMuseumToSelected: _redux_museums_museums_actions__WEBPACK_IMPORTED_MODULE_3__["setMuseumToSelected"]
+  setMuseumToSelected: _redux_museums_museums_actions__WEBPACK_IMPORTED_MODULE_3__["setMuseumToSelected"],
+  findOldest: _redux_artworks_artworks_actions__WEBPACK_IMPORTED_MODULE_4__["findOldest"]
 })(MuseumList));
 
 /***/ }),
@@ -834,7 +866,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./client/redux/artworks/artworks.actions.js ***!
   \***************************************************/
-/*! exports provided: fetchAllArtwork, fetchAvailableArtwork, fetchArtInCurrentMuseum, addSingleArtwork, updateMuseumIdStatusOfArtwork, deleteSingleArtwork */
+/*! exports provided: fetchAllArtwork, fetchAvailableArtwork, fetchArtInCurrentMuseum, findOldest, addSingleArtwork, updateMuseumIdStatusOfArtwork, deleteSingleArtwork */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -842,6 +874,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllArtwork", function() { return fetchAllArtwork; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAvailableArtwork", function() { return fetchAvailableArtwork; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchArtInCurrentMuseum", function() { return fetchArtInCurrentMuseum; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findOldest", function() { return findOldest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addSingleArtwork", function() { return addSingleArtwork; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateMuseumIdStatusOfArtwork", function() { return updateMuseumIdStatusOfArtwork; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSingleArtwork", function() { return deleteSingleArtwork; });
@@ -867,6 +900,12 @@ const fetchArtInCurrentMuseum = currentMuseum => async dispatch => {
   await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(`/api/artwork/onDisplayHere/${currentMuseum.id}`).then(async res => dispatch({
     type: _artworks_types__WEBPACK_IMPORTED_MODULE_1__["FETCH_ART_IN_CURRENT_MUSEUM"],
     displayed: res.data.displayed
+  }));
+};
+const findOldest = () => async dispatch => {
+  await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/findOldest').then(async res => dispatch({
+    type: _artworks_types__WEBPACK_IMPORTED_MODULE_1__["FIND_OLDEST"],
+    oldestMusId: res.data.isOldestHoused
   }));
 };
 const addSingleArtwork = artworkData => async dispatch => {
@@ -919,7 +958,8 @@ const initialState = {
   allArtwork: [],
   singleArtwork: {},
   availableArtwork: [],
-  currentDisplay: []
+  currentDisplay: [],
+  idOldestHoused: ''
 };
 const artworkReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -957,6 +997,11 @@ const artworkReducer = (state = initialState, action) => {
         currentDisplay: state.currentDisplay.concat(action.updatedArt)
       };
 
+    case _artworks_types__WEBPACK_IMPORTED_MODULE_0__["FIND_OLDEST"]:
+      return { ...state,
+        idOldestHoused: action.oldestMusId
+      };
+
     default:
       return state;
   }
@@ -968,7 +1013,7 @@ const artworkReducer = (state = initialState, action) => {
 /*!*************************************************!*\
   !*** ./client/redux/artworks/artworks.types.js ***!
   \*************************************************/
-/*! exports provided: FETCH_ALL_ARTWORK, ADD_SINGLE_ARTWORK, DELETE_SINGLE_ARTWORK, FETCH_AVAILABLE_ARTWORK, FETCH_ART_IN_CURRENT_MUSEUM, UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK */
+/*! exports provided: FETCH_ALL_ARTWORK, ADD_SINGLE_ARTWORK, DELETE_SINGLE_ARTWORK, FETCH_AVAILABLE_ARTWORK, FETCH_ART_IN_CURRENT_MUSEUM, UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK, FIND_OLDEST */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -979,12 +1024,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_AVAILABLE_ARTWORK", function() { return FETCH_AVAILABLE_ARTWORK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_ART_IN_CURRENT_MUSEUM", function() { return FETCH_ART_IN_CURRENT_MUSEUM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK", function() { return UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FIND_OLDEST", function() { return FIND_OLDEST; });
 const FETCH_ALL_ARTWORK = 'FETCH_ALL_ARTWORK';
 const ADD_SINGLE_ARTWORK = 'ADD_SINGLE_ARTWORK';
 const DELETE_SINGLE_ARTWORK = 'DELETE_SINGLE_ARTWORK';
 const FETCH_AVAILABLE_ARTWORK = 'FETCH_AVAILABLE_ARTWORK';
 const FETCH_ART_IN_CURRENT_MUSEUM = 'FETCH_ART_IN_CURRENT_MUSEUM';
 const UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK = 'UPDATE_MUSEUM_ID_STATUS_OF_ARTWORK';
+const FIND_OLDEST = 'FIND_OLDEST';
 
 /***/ }),
 

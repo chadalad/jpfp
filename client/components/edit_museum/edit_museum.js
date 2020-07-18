@@ -4,6 +4,8 @@ import {
   fetchAvailableArtwork,
   fetchArtInCurrentMuseum,
   updateMuseumIdStatusOfArtwork,
+  addSingleArtwork,
+  deleteSingleArtwork,
 } from '../../redux/artworks/artworks.actions';
 
 class EditMuseum extends Component {
@@ -48,7 +50,19 @@ class EditMuseum extends Component {
                 this.props.currentDisplay.length
                 ?
                   this.props.currentDisplay.map(item => (
-                    <li key={item.id}>{`'${item.title}' by ${item.artist} (${item.yearCreated})`}</li>
+                    <li key={item.id} className='mr-2'>
+                      {`'${item.title}' by ${item.artist} (${item.yearCreated})`}
+                      {/* <a className="delete" onClick={() => this.props.deleteMuseum({id: museum.id})}></a> */}
+                      {/* <a className='delete' onClick={() => console.log('delete')}></a> */}
+                      <button className='button is-danger is-light is-small' onClick={(e) => {
+                        this.props.addSingleArtwork({
+                          title: item.title, 
+                          artist: item.artist, 
+                          yearCreated: item.yearCreated
+                        });
+                        this.props.deleteSingleArtwork({ id: item.id })
+                      }}>Remove</button>
+                    </li>
                   ))
                 :
                   'There are currently no pieces on display.'
@@ -88,4 +102,6 @@ export default connect(mapStateToProps, {
   fetchAvailableArtwork,
   fetchArtInCurrentMuseum,
   updateMuseumIdStatusOfArtwork,
+  addSingleArtwork,
+  deleteSingleArtwork,
 })(EditMuseum);
