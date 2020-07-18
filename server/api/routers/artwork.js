@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const artworkRouter = require('express').Router();
-const { models: { Artwork } } = require('../../db/index');
+const { models: { Artwork, Museum } } = require('../../db/index');
+const { Op } = require('sequelize');
 
 artworkRouter.get('/', async (req, res) => {
   try {
@@ -19,6 +20,102 @@ artworkRouter.get('/', async (req, res) => {
   }
 });
 
+artworkRouter.get('/available', async (req, res) => {
+  try {
+    const availableArt = await Artwork.findAll({
+      where: {
+        museumId: null,
+      }
+    });
+
+    res.status(200).send({
+      availableArt,
+      message: 'Available art found and sent.'
+    })
+  } catch (e) {
+    console.log(chalk.redBright(`Error fetching artwork from database.`));
+    console.error(e);
+
+    res.status(500).send({
+      message: 'Error fetching available artwork from database.',
+    });
+  }
+});
+
+artworkRouter.get('/onDisplayHere/:id', async (req, res) => {
+  try {
+    // const reqMusId = req.body.id;
+    // const { id } = req.body;
+    const { id } = req.params;
+    console.log(chalk.yellow(id));
+
+    // let artOnDisplayAtId = [];
+
+    // console.log('museumId: ', reqMusId)
+    // if (reqMusId) {
+    //   artOnDisplayAtId = await Artwork.findAll({
+    //     where: {
+    //       museumId: reqMusId,
+    //     }
+    //   });
+    // }
+
+    const artOnDisplayAtId = await Artwork.findAll({
+      where: {
+        museumId: id,
+      }
+    });
+
+    // console.log(chalk.yellow(req.body))
+    // console.log(typeof reqMusId, reqMusId)
+    console.log('return array:', artOnDisplayAtId)
+
+    res.status(200).send({
+      displayed: artOnDisplayAtId,
+      message: 'Art on display at found and sent',
+    });
+  } catch (e) {
+    console.log(chalk.redBright(`Error fetching artwork on display here from database.`));
+    console.error(e);
+
+    res.status(500).send({
+      message: 'Error fetching artwork on display here from database.',
+    });
+  }
+})
+
+artworkRouter.put('/museumIdUpdate', async (req, res) => {
+  try {
+    const {
+      idArt,
+      idMuseum,
+    } = req.body;
+    console.log('idArt: ', idArt);
+    console.log('idMuseum:', idMuseum);
+
+    await Artwork.update({ museumId: idMuseum },{
+      where: {
+        id: idArt,
+      },
+    });
+
+    const updatedArt = await Artwork.findByPk(idArt);
+
+    console.log('updatedArt', updatedArt);
+
+    res.status(205).send({
+      message: `Artwork successfully updated.`,
+      updatedMusIdArt: updatedArt,
+    });
+  } catch (e) {
+    console.log(chalk.red('Error updating artwork.'));
+    console.error(e);
+    res.status(500).send({
+      message: 'Error updating artwork.',
+    });
+  }
+});
+
 artworkRouter.post('/', async (req, res) => {
   try {
     const { 
@@ -32,12 +129,10 @@ artworkRouter.post('/', async (req, res) => {
     if (
       typeof title !== 'string' &&
       typeof artist !== 'string' &&
-      typeof estimatedWorth !== 'number' &&
-      typeof yearCreated !== 'number' &&
-      typeof imageURL !== 'string'
+      typeof yearCreated !== 'number'
     ) {
       res.status(400).send({
-        message: "Body of request must include a title, artist, and URL of type 'String' and a yearCreated and estimatedWorth of type 'number'.",
+        message: "Body of request must include a title, artist of type 'String' and a yearCreated and estimatedWorth of type 'number'.",
       })
     } else {
       const createdArtwork = await Artwork.create({

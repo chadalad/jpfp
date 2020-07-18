@@ -27,11 +27,12 @@ museumRouter.post('/', async (req, res) => {
       imageURL,
      } = req.body;
 
-    if (typeof name !== 'string' && typeof imageURL !== 'string') {
-      res.status(400).send({
-        message: 'Body of request must include a "name" of type "string" and URL of type "string".',
-      });
-    } else {
+    console.log(chalk.yellow(`name: ${name}, imageURL: ${imageURL}`));
+    // if (typeof name !== 'string' && typeof imageURL !== 'string') {
+    //   res.status(400).send({
+    //     message: 'Body of request must include a "name" of type "string" and URL of type "string".',
+    //   });
+    // } else {
       const createdMuseum = await Museum.create({
         name,
         imageURL,
@@ -42,7 +43,7 @@ museumRouter.post('/', async (req, res) => {
         museum: createdMuseum,
         message: `Museum ${name} was created successfully!`,
       });
-    } 
+    // } 
   } catch (e) {
     console.log(chalk.red('Error creating museum.'));
     console.error(e);
@@ -60,7 +61,8 @@ museumRouter.put('/', async (req, res) => {
     //   res.status(400).send({
     //     message: `Museum ${name} does not exist in database.`,
     //   });
-    if (!imageURL && !name) {
+    console.log(chalk.cyanBright('Put Museum Reques: ', req.body))
+    if (!imageURL || !name) {
       res.status(400).send({
         message: `Must include an image URL or museum name to be updated in the request.`,
       })
@@ -104,6 +106,7 @@ museumRouter.put('/', async (req, res) => {
 museumRouter.delete('/', async (req, res) => {
   try{
     const { id } = req.body;
+    console.log(chalk.yellow('body:', id, typeof id));
     const destroyedMuseum = await Museum.findByPk(id);
     await destroyedMuseum.destroy();
     res.status(204).send({

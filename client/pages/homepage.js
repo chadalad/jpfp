@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { CreateMuseum } from '../components/index';
+import { CreateMuseum, AddMuseum, MuseumList, EditMuseum } from '../components/index';
+import { connect } from 'react-redux';
 
 class Homepage extends Component {
   render() {
     return (
       <div>
-        <CreateMuseum />
+        {/* <CreateMuseum /> */}
+        <AddMuseum />
+        {/* <EditMuseum /> */}
+        <MuseumList />
         {/* Hello World! */}
       </div>
     )
   }
 }
 
-export default Homepage;
+
+
+export default connect(null, {})(Homepage);
